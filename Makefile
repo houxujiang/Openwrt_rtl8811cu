@@ -75,4 +75,12 @@ define Build/Compile
 		modules
 endef
 
+PKG_FIXUP:=patch
+...
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(CP) ./fix-cfg80211-args.patch $(PKG_BUILD_DIR)/
+	$(call PatchDir,$(PKG_BUILD_DIR),$(PKG_BUILD_DIR))
+endef
+
 $(eval $(call KernelPackage,rtl8821cu))
